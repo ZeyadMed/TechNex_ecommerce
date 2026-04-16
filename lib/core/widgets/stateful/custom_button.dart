@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+import 'package:e_commerce/core/theme/app_colors.dart';
+import 'package:e_commerce/core/theme/text_styles.dart';
+import 'package:e_commerce/core/widgets/widgets.dart';
+
+class CustomButton extends StatelessWidget {
+  final String title;
+  final Widget? icon;
+  final Color iconBackgroundColor;
+  final Color backgroundColor;
+  final Color? borderColor;
+  final Color textColor;
+  final double borderRadius;
+  final EdgeInsetsGeometry padding;
+  final double? width;
+  final double? height;
+  final VoidCallback onPressed;
+  final bool? isIcon;
+  final double? fontSize;
+  final FontWeight? fontWeight;
+
+  CustomButton({
+    super.key,
+    this.title = "",
+    this.icon,
+    Color? backgroundColor,
+    this.textColor = Colors.white,
+    this.borderRadius = 12.0,
+    this.padding = const EdgeInsets.all(15),
+    required this.onPressed,
+    this.iconBackgroundColor = AppColors.whiteColor,
+    this.isIcon = false,
+    this.fontSize,
+    this.borderColor,
+    this.fontWeight,
+    this.width,
+    this.height,
+  }) : backgroundColor = backgroundColor ?? AppColors.primaryColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: padding,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(borderRadius),
+          border: borderColor != null ? Border.all(color: borderColor!) : null,
+        ),
+        child: isIcon ?? false
+            ? Center(
+                child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (icon != null) ...[
+                    SizedBox(width: 8.w),
+                    icon!,
+                  ],
+                  Gap(10),
+                  LocalizedLabel(
+                    text: title,
+                    style: TextStyles.darkBold16.copyWith(
+                      color: textColor,
+                      fontWeight: fontWeight ?? FontWeight.w700,
+                      fontSize: fontSize ?? 16.spMax,
+                    ),
+                  ),
+                ],
+              ))
+            : Center(
+                child: LocalizedLabel(
+                  text: title,
+                  style: TextStyles.darkBold16.copyWith(
+                    color: textColor,
+                    fontWeight: fontWeight ?? FontWeight.w700,
+                    fontSize: fontSize ?? 16.spMax,
+                  ),
+                ),
+              ),
+      ),
+    );
+  }
+}
