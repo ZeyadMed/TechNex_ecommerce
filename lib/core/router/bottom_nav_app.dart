@@ -90,7 +90,7 @@ class _BottomNavAppState extends State<BottomNavApp> {
               ),
         // Custom bottom navigation bar to allow an elevated selected icon
         bottomNavigationBar: Container(
-          color: Colors.white,
+          color: context.isDarkMode ? const Color(0xFF171B2C) : Colors.white,
           padding: EdgeInsets.only(bottom: 8.h, left: 12.w, right: 12.w),
           child: SafeArea(
             top: false,
@@ -98,12 +98,8 @@ class _BottomNavAppState extends State<BottomNavApp> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(5, (index) {
                 // mapping assets and labels per index
-                final selectedAssets = [
-     
-                ];
-                final unselectedAssets = [
-
-                ];
+                final selectedAssets = [];
+                final unselectedAssets = [];
                 final labels = [
                   'myJobs'.tr(),
                   'categories'.tr(),
@@ -156,7 +152,9 @@ class _BottomNavAppState extends State<BottomNavApp> {
                               // colorize selected icon white inside the colored circle
                               color: isSelected
                                   ? Colors.white
-                                  : AppColors.greyColor,
+                                  : (context.isDarkMode
+                                      ? Colors.white70
+                                      : AppColors.greyColor),
                             ),
                           ),
                         ),
@@ -173,7 +171,7 @@ class _BottomNavAppState extends State<BottomNavApp> {
                                   fontWeight: FontWeight.w400,
                                 ),
                           child: Text(
-                            labels[index].tr(),
+                            labels[index],
                             maxLines: 1,
                           ),
                         ),

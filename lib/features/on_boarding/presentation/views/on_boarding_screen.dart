@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:e_commerce/core/cache_manager/cache_manager.dart';
 import 'package:e_commerce/core/config/brand/brand_config.dart';
+import 'package:e_commerce/core/extensions/extensions.dart';
 import 'package:e_commerce/core/router/app_router.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
@@ -71,11 +72,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final horizontalPadding =
+        context.responsiveValue(mobile: 24.0, smallMobile: 14.0, tablet: 52.0);
+    final topPadding =
+        context.responsiveValue(mobile: 50.0, smallMobile: 24.0, tablet: 56.0);
+
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Padding(
-          padding: const EdgeInsets.only(left: 40.0, right: 40, top: 50.0),
+          padding: EdgeInsets.only(
+              left: horizontalPadding,
+              right: horizontalPadding,
+              top: topPadding),
           child: Column(
             children: [
               Expanded(
@@ -118,7 +127,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                   children: [
                                     Flexible(
                                       child: Text(
-                                        onboardingData[index]["title"]!.tr(),
+                                        onboardingData[index]["title"]!,
                                         textAlign: TextAlign.center,
                                         style: TextStyles.darkBold20.copyWith(
                                           color: AppColors.primaryColor,
@@ -128,10 +137,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                     Gap(10.h),
                                     Flexible(
                                       child: Text(
-                                        onboardingData[index]["description"]!
-                                            .tr(),
+                                        onboardingData[index]["description"]!,
                                         textAlign: TextAlign.center,
-                                        style: TextStyles.blackRegular16,
+                                        style:
+                                            TextStyles.blackRegular16.copyWith(
+                                          color: context.isDarkMode
+                                              ? Colors.white
+                                              : AppColors.blackColor,
+                                        ),
                                         softWrap: true,
                                       ),
                                     ),
@@ -163,9 +176,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     onTap: _skipToEnd,
                     child: LocalizedLabel(
                       text: _currentPage == onboardingData.length - 1
-                          ? 'login'.tr()
-                          : 'skip'.tr(),
-                      color: AppColors.blackColor,
+                          ? 'login'
+                          : 'skip',
+                      color: context.isDarkMode
+                          ? Colors.white
+                          : AppColors.blackColor,
                       style: TextStyles.darkRegular14,
                       fontWeight: FontWeight.w700,
                     ),

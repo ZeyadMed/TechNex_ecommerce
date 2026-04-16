@@ -1,9 +1,26 @@
 part of "extensions.dart";
 
 extension ContextExtensions on BuildContext {
+  static const double _smallPhoneMaxWidth = 360;
+  static const double _tabletMinWidth = 600;
+
   double get screenHeight => MediaQuery.of(this).size.height;
 
   double get screenWidth => MediaQuery.of(this).size.width;
+
+  bool get isSmallPhone => screenWidth <= _smallPhoneMaxWidth;
+  bool get isTablet => screenWidth >= _tabletMinWidth;
+  bool get isMobile => !isTablet;
+
+  T responsiveValue<T>({
+    required T mobile,
+    T? smallMobile,
+    T? tablet,
+  }) {
+    if (isTablet) return tablet ?? mobile;
+    if (isSmallPhone) return smallMobile ?? mobile;
+    return mobile;
+  }
 
   ThemeData get theme => Theme.of(this);
 
@@ -294,5 +311,6 @@ extension ContextExtensions on BuildContext {
       animationController.dispose();
     });
   }
+
   bool get isDarkMode => theme.brightness == Brightness.dark;
 }
