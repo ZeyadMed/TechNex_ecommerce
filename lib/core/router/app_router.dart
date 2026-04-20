@@ -2,6 +2,7 @@ import 'package:e_commerce/features/auth/register/presentation/register_screen.d
 import 'package:e_commerce/features/auth/forget_password/presentation/forget_password_screen.dart';
 import 'package:e_commerce/features/auth/verify_otp/presentation/otp_screen.dart';
 import 'package:e_commerce/features/auth/change_password/presentation/change_password_screen.dart';
+import 'package:e_commerce/features/address/presentation/address_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:e_commerce/core/router/bottom_nav_app.dart';
 import 'package:e_commerce/features/auth/login/presentation/login_screen.dart';
@@ -31,6 +32,7 @@ abstract class AppRouter {
   static const String aboutUs = '/aboutUs';
   static const String updateProfileScreen = '/updateProfileScreen';
   static const String privacyPolicy = '/privacyPolicy';
+  static const String addressesScreen = '/addressesScreen';
 
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
@@ -73,6 +75,10 @@ abstract class AppRouter {
       GoRoute(
         path: resetPasswordScreen,
         builder: (context, state) => const ChangePasswordScreen(),
+      ),
+      GoRoute(
+        path: addressesScreen,
+        builder: (context, state) => const AddressScreen(),
       ),
     ],
   );

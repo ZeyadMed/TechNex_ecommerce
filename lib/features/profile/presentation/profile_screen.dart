@@ -133,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
                         ProfileOptionTile(
                           icon: Icons.location_on_outlined,
                           title: 'addresses'.tr(),
-                          onTap: () {},
+                          onTap: () => context.push(AppRouter.addressesScreen),
                         ),
                         ProfileOptionTile(
                           icon: Icons.notifications_none_rounded,
@@ -228,7 +228,7 @@ class _ProfileHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'profileDemoName'.tr(),
+                  'Zeyad Medhat'.tr(),
                   style: TextStyles.blackBold20.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
@@ -236,7 +236,7 @@ class _ProfileHeader extends StatelessWidget {
                 ),
                 const Gap(4),
                 Text(
-                  'profileDemoEmail'.tr(),
+                  'zyadmedhat@gmail.com'.tr(),
                   style: TextStyles.blackRegular16.copyWith(
                     color: Colors.white70,
                     fontWeight: FontWeight.w500,
