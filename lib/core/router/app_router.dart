@@ -1,3 +1,7 @@
+import 'package:e_commerce/features/auth/register/presentation/register_screen.dart';
+import 'package:e_commerce/features/auth/forget_password/presentation/forget_password_screen.dart';
+import 'package:e_commerce/features/auth/verify_otp/presentation/otp_screen.dart';
+import 'package:e_commerce/features/auth/change_password/presentation/change_password_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:e_commerce/core/router/bottom_nav_app.dart';
 import 'package:e_commerce/features/auth/login/presentation/login_screen.dart';
@@ -53,6 +57,22 @@ abstract class AppRouter {
       GoRoute(
         path: login,
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: signUp,
+        builder: (context, state) => const RegisterScreen(),
+      ),
+      GoRoute(
+        path: forgetPassword,
+        builder: (context, state) => const ForgetPasswordScreen(),
+      ),
+      GoRoute(
+        path: verifyOtp,
+        builder: (context, state) => const OtpScreen(),
+      ),
+      GoRoute(
+        path: resetPasswordScreen,
+        builder: (context, state) => const ChangePasswordScreen(),
       ),
     ],
   );

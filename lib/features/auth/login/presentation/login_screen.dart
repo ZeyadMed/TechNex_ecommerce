@@ -1,3 +1,8 @@
+import 'package:e_commerce/core/router/app_router.dart';
+import 'package:e_commerce/core/style/assets.dart';
+import 'package:e_commerce/core/widgets/stateless/divider_or_widget.dart';
+import 'package:e_commerce/core/widgets/stateless/flexiable_image.dart';
+import 'package:e_commerce/core/widgets/stateless/logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -5,11 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_commerce/core/bloc/theme_bloc/theme_bloc.dart';
 import 'package:e_commerce/core/extensions/extensions.dart';
 import 'package:e_commerce/core/helpers/validators.dart';
-import 'package:e_commerce/core/style/assets.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
 import 'package:e_commerce/core/widgets/custom_text_field.dart';
-import 'package:e_commerce/core/widgets/stateless/flexiable_image.dart';
+import 'package:e_commerce/core/widgets/stateful/custom_button.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -85,101 +90,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   decoration: BoxDecoration(
                     color:
-                        dark ? const Color(0xFF171B2C) : AppColors.whiteColor,
+                        dark ? AppColors.darkTextColor : AppColors.whiteColor,
                     borderRadius: BorderRadius.circular(22),
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: OutlinedButton.icon(
-                              onPressed: () => _toggleLanguage(context),
-                              icon: Icon(
-                                Icons.language,
-                                size: 18,
-                                color: dark
-                                    ? Colors.white70
-                                    : AppColors.darkTextColor,
-                              ),
-                              label: Text(
-                                context.locale.languageCode == 'ar'
-                                    ? 'AR'
-                                    : 'EN',
-                                style: TextStyles.blackRegular14.copyWith(
-                                  color: dark
-                                      ? Colors.white
-                                      : AppColors.darkTextColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              style: OutlinedButton.styleFrom(
-                                side: BorderSide(
-                                  color: dark
-                                      ? Colors.white24
-                                      : Colors.grey.shade300,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const Gap(10),
-                          Expanded(
-                            child: OutlinedButton.icon(
-                              onPressed: () =>
-                                  _toggleTheme(context, isDark: dark),
-                              icon: Icon(
-                                dark ? Icons.light_mode : Icons.dark_mode,
-                                size: 18,
-                                color: dark
-                                    ? Colors.white70
-                                    : AppColors.darkTextColor,
-                              ),
-                              label: Text(
-                                (dark ? 'lightMode' : 'darkMode').tr(),
-                                style: TextStyles.blackRegular14.copyWith(
-                                  color: dark
-                                      ? Colors.white
-                                      : AppColors.darkTextColor,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              style: OutlinedButton.styleFrom(
-                                side: BorderSide(
-                                  color: dark
-                                      ? Colors.white24
-                                      : Colors.grey.shade300,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      toggleThemeAndLanguage(context, dark),
                       const Gap(14),
-                      Container(
-                        height: context.responsiveValue(
-                            mobile: 54.0, smallMobile: 46.0, tablet: 60.0),
-                        width: context.responsiveValue(
-                            mobile: 54.0, smallMobile: 46.0, tablet: 60.0),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF4C67FF),
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Center(
-                          child: FlexibleImage(
-                            source: Assets.assetsImagesLogtaDarkPng,
-                            height: 30,
-                            width: 30,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
+                      LogoWidget(),
                       const Gap(16),
                       Text(
                         'welcomeBack'.tr(),
@@ -237,174 +156,63 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const Gap(6),
-                      Row(
-                        children: [
-                          Checkbox(
-                            checkColor: AppColors.whiteColor,
-                            value: rememberMe,
-                            side: const BorderSide(
-                              color: Color(0xFF9EA5B0),
-                              width: 1.2,
-                            ),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            onChanged: (value) {
-                              setState(() {
-                                rememberMe = value ?? false;
-                              });
-                            },
-                          ),
-                          // const Gap(2),
-                          Text(
-                            'rememberMe'.tr(),
-                            style: TextStyles.blackRegular14.copyWith(
-                              color: dark ? Colors.white : AppColors.blackColor,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Text(
-                              'forgotPasswordQuestion'.tr(),
-                              style: TextStyles.blackRegular14.copyWith(
-                                color: const Color(0xFF4D64FF),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                      rememberMeAndForgetPassword(dark),
+                      const Gap(10),
+                      CustomButton(
+                        title: 'signIn',
+                        onPressed: () {},
+                        borderRadius: 14,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        gradient: const LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Color(0xFF4653DE), Color(0xFF2E63F6)],
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color(0x2E2D6CFF),
+                            blurRadius: 14,
+                            offset: Offset(0, 6),
                           ),
                         ],
-                      ),
-                      const Gap(10),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            gradient: const LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [Color(0xFF4653DE), Color(0xFF2E63F6)],
-                            ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0x2E2D6CFF),
-                                blurRadius: 14,
-                                offset: Offset(0, 6),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'signIn'.tr(),
-                                style: TextStyles.whiteBold15.copyWith(
-                                  fontSize: context.responsiveValue(
-                                      mobile: 20.0,
-                                      smallMobile: 16.0,
-                                      tablet: 22.0),
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const Gap(8),
-                              const Icon(
-                                Icons.arrow_forward,
-                                color: AppColors.whiteColor,
-                                size: 20,
-                              ),
-                            ],
+                        fontSize: context.responsiveValue(
+                          mobile: 20.0,
+                          smallMobile: 16.0,
+                          tablet: 22.0,
+                        ),
+                        fontWeight: FontWeight.w700,
+                        trailingIcon: Icon(
+                          Icons.arrow_forward,
+                          color: AppColors.whiteColor,
+                          size: context.responsiveValue(
+                            mobile: 20.0,
+                            smallMobile: 16.0,
+                            tablet: 22.0,
                           ),
                         ),
+                        iconSpacing: 8,
                       ),
                       const Gap(20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Colors.grey.shade300,
-                              height: 1,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: Text(
-                              'or'.tr(),
-                              style: TextStyles.blackRegular14.copyWith(
-                                color:
-                                    dark ? Colors.white70 : AppColors.greyColor,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: Colors.grey.shade300,
-                              height: 1,
-                            ),
-                          ),
-                        ],
-                      ),
+                      DividerOr(dark: dark),
                       const Gap(16),
-                      Container(
-                        width: double.infinity,
+                      CustomButton(
+                        onPressed: () {},
+                        title: 'continueWithGoogle',
+                        borderRadius: 12,
+                        borderColor: AppColors.greyColor3,
                         padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey.shade300),
-                          color: dark
-                              ? const Color(0xFF21283B)
-                              : AppColors.whiteColor,
+                        backgroundColor: AppColors.whiteColor,
+                        textColor: AppColors.blackColor,
+                        fontWeight: FontWeight.w500,
+                        icon: FlexibleImage(
+                          source: Assets.assetsSvgGoogle,
+                          height: 50,
+                          width: 50,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'G',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFEA4335),
-                              ),
-                            ),
-                            const Gap(10),
-                            Text(
-                              'continueWithGoogle'.tr(),
-                              style: TextStyles.blackRegular14.copyWith(
-                                color:
-                                    dark ? Colors.white : AppColors.blackColor,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
+                        isIcon: true,
                       ),
                       const Gap(18),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'dontHaveAccount'.tr(),
-                            style: TextStyles.blackRegular14.copyWith(
-                              color:
-                                  dark ? Colors.white : AppColors.darkTextColor,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const Gap(4),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Text(
-                              'signUp'.tr(),
-                              style: TextStyles.blackRegular14.copyWith(
-                                color: const Color(0xFF3E66FF),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      signUpOption(dark),
                     ],
                   ),
                 ),
@@ -413,6 +221,134 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Row rememberMeAndForgetPassword(bool dark) {
+    return Row(
+      children: [
+        Checkbox(
+          checkColor: AppColors.whiteColor,
+          value: rememberMe,
+          side: const BorderSide(
+            color: Color(0xFF9EA5B0),
+            width: 1.2,
+          ),
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          onChanged: (value) {
+            setState(() {
+              rememberMe = value ?? false;
+            });
+          },
+        ),
+        // const Gap(2),
+        Text(
+          'rememberMe'.tr(),
+          style: TextStyles.blackRegular14.copyWith(
+            color: dark ? Colors.white : AppColors.blackColor,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const Spacer(),
+        GestureDetector(
+          onTap: () {
+            context.push(AppRouter.forgetPassword);
+          },
+          child: Text(
+            'forgotPasswordQuestion'.tr(),
+            style: TextStyles.blackRegular14.copyWith(
+              color: const Color(0xFF4D64FF),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row signUpOption(bool dark) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'dontHaveAccount'.tr(),
+          style: TextStyles.blackRegular14.copyWith(
+            color: dark ? Colors.white : AppColors.darkTextColor,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const Gap(4),
+        GestureDetector(
+          onTap: () {
+            context.push(AppRouter.signUp);
+          },
+          child: Text(
+            'signUp'.tr(),
+            style: TextStyles.blackRegular14.copyWith(
+              color: const Color(0xFF3E66FF),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row toggleThemeAndLanguage(BuildContext context, bool dark) {
+    return Row(
+      children: [
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: () => _toggleLanguage(context),
+            icon: Icon(
+              Icons.language,
+              size: 18,
+              color: dark ? Colors.white70 : AppColors.darkTextColor,
+            ),
+            label: Text(
+              context.locale.languageCode == 'ar' ? 'AR' : 'EN',
+              style: TextStyles.blackRegular14.copyWith(
+                color: dark ? Colors.white : AppColors.darkTextColor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(
+                color: dark ? Colors.white24 : Colors.grey.shade300,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ),
+        const Gap(10),
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: () => _toggleTheme(context, isDark: dark),
+            icon: Icon(
+              dark ? Icons.light_mode : Icons.dark_mode,
+              size: 18,
+              color: dark ? Colors.white70 : AppColors.darkTextColor,
+            ),
+            label: Text(
+              (dark ? 'lightMode' : 'darkMode').tr(),
+              style: TextStyles.blackRegular14.copyWith(
+                color: dark ? Colors.white : AppColors.darkTextColor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(
+                color: dark ? Colors.white24 : Colors.grey.shade300,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

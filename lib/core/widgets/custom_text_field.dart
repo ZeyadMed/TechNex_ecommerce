@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:e_commerce/core/extensions/extensions.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
 import 'package:e_commerce/core/widgets/widgets.dart';
@@ -106,6 +107,13 @@ class _CustomtextfieldState extends State<Customtextfield> {
 
   @override
   Widget build(BuildContext context) {
+    final bool dark = context.isDarkMode;
+    final Color fieldFillColor = dark ? const Color(0xFF21283B) : Colors.white;
+    final Color iconColor = dark ? Colors.white70 : AppColors.greyColor3;
+    final Color hintColor = dark ? Colors.white54 : Colors.grey;
+    final Color enabledBorderColor =
+        dark ? Colors.white12 : Colors.grey.shade300;
+
     return Column(
       children: [
         widget.labelText != null
@@ -134,7 +142,10 @@ class _CustomtextfieldState extends State<Customtextfield> {
           controller: widget.textEditingController,
           onChanged: widget.onChanged,
           obscureText: hidden,
-          style: widget.style ?? TextStyles.darkRegular16,
+          style: widget.style ??
+              TextStyles.darkRegular16.copyWith(
+                color: dark ? Colors.white : AppColors.darkTextColor,
+              ),
           onTap: widget.onTap ??
               () {
                 if (widget.onDateSelected != null) {
@@ -145,24 +156,34 @@ class _CustomtextfieldState extends State<Customtextfield> {
             contentPadding: EdgeInsets.symmetric(
                 vertical: (widget.hieght ?? 13.h).toDouble(), horizontal: 10.w),
             hintText: widget.hintText.tr(),
-            fillColor: Colors.white,
+            fillColor: fieldFillColor,
             filled: true,
             // counterStyle: TextStyles.darkRegular16,
             hintStyle: TextStyles.greyColor2Regular14
-                .copyWith(color: Colors.grey, fontSize: 14.sp),
-            prefixIcon: widget.prefix,
-            suffixIcon: widget.suffix,
+                .copyWith(color: hintColor, fontSize: 14.sp),
+            prefixIcon: widget.prefix == null
+                ? null
+                : IconTheme(
+                    data: IconThemeData(color: iconColor),
+                    child: widget.prefix,
+                  ),
+            suffixIcon: widget.suffix == null
+                ? null
+                : IconTheme(
+                    data: IconThemeData(color: iconColor),
+                    child: widget.suffix,
+                  ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12.r),
               borderSide: BorderSide(
-                color: Colors.grey.shade300,
+                color: enabledBorderColor,
                 width: 1.0,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadious ?? 12.r),
               borderSide: BorderSide(
-                color: Colors.grey.shade300,
+                color: enabledBorderColor,
                 width: 1.0,
               ),
             ),

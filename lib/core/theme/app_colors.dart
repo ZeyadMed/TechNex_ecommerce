@@ -4,7 +4,7 @@ import 'package:e_commerce/core/config/brand/brand_config.dart';
 abstract final class AppColors {
   static Color get primaryColor2 => BrandConfig.current.palette.secondary;
   static Color get primaryColor => BrandConfig.current.palette.primary;
-  static const Color darkTextColor = Color(0xff202244);
+  static const Color darkTextColor = Color.fromARGB(255, 36, 38, 77);
   static Color get scaffoldBackground =>
       BrandConfig.current.palette.scaffoldBackground;
   static const Color lightTextColor = Color.fromARGB(255, 226, 226, 226);
