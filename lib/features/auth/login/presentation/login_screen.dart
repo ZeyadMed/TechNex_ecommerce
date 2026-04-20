@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/router/app_router.dart';
+import 'package:e_commerce/core/cache_manager/cache_manager.dart';
 import 'package:e_commerce/core/style/assets.dart';
 import 'package:e_commerce/core/widgets/stateless/divider_or_widget.dart';
 import 'package:e_commerce/core/widgets/stateless/flexiable_image.dart';
@@ -160,7 +161,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Gap(10),
                       CustomButton(
                         title: 'signIn',
-                        onPressed: () {},
+                        onPressed: () async {
+                          await CacheManager.setGuestMode(false);
+                          if (!context.mounted) return;
+                          context.push(AppRouter.initialRoot);
+                        },
                         borderRadius: 14,
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         gradient: const LinearGradient(
@@ -191,6 +196,28 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         iconSpacing: 8,
+                      ),
+                      const Gap(10),
+                      CustomButton(
+                        title: 'guestMode',
+                        onPressed: () async {
+                          await CacheManager.setGuestMode(true);
+                          if (!context.mounted) return;
+                          context.push(AppRouter.initialRoot);
+                        },
+                        borderRadius: 12,
+                        borderColor: AppColors.greyColor3,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        backgroundColor:
+                            dark ? const Color(0xFF21283B) : AppColors.whiteColor,
+                        textColor: dark ? AppColors.whiteColor : AppColors.blackColor,
+                        fontWeight: FontWeight.w500,
+                        icon: Icon(
+                          Icons.person_outline,
+                          size: 20,
+                          color: dark ? AppColors.whiteColor : AppColors.blackColor,
+                        ),
+                        isIcon: true,
                       ),
                       const Gap(20),
                       DividerOr(dark: dark),

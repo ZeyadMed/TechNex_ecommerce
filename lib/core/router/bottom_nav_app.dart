@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:e_commerce/core/extensions/extensions.dart';
 import 'package:e_commerce/core/service_locator/service_locator.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
+import 'package:e_commerce/core/widgets/common_widget/custom_error_message.dart';
+import 'package:e_commerce/features/cart/presentation/cart_screen.dart';
+import 'package:e_commerce/features/home/presentation/home_screen.dart';
+import 'package:e_commerce/features/profile/presentation/profile_screen.dart';
+import 'package:e_commerce/features/wishlist/presentation/wishlist_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BottomNavApp extends StatefulWidget {
   const BottomNavApp({super.key});
@@ -16,43 +19,105 @@ class BottomNavApp extends StatefulWidget {
 }
 
 class _BottomNavAppState extends State<BottomNavApp> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
   DateTime? _lastBackPressed;
-  List<Widget> _pages = [];
-  bool _isLoading = true;
+  //final List<Widget?> _pages = List.filled(4, null);
+  final Map<int, Widget> _cachedPages = {};
+
+  final List<_BottomNavItemData> _items = const [
+    _BottomNavItemData(
+      labelKey: 'home',
+      unselectedIcon: Icons.home_outlined,
+      selectedIcon: Icons.home_rounded,
+    ),
+    _BottomNavItemData(
+      labelKey: 'wishlist',
+      unselectedIcon: Icons.favorite_border_rounded,
+      selectedIcon: Icons.favorite_rounded,
+    ),
+    _BottomNavItemData(
+      labelKey: 'cart',
+      unselectedIcon: Icons.shopping_cart_outlined,
+      selectedIcon: Icons.shopping_cart_rounded,
+    ),
+    _BottomNavItemData(
+      labelKey: 'profile',
+      unselectedIcon: Icons.person_outline_rounded,
+      selectedIcon: Icons.person_rounded,
+    ),
+  ];
 
   @override
   void initState() {
     getIt<Dio>().options.headers['Accept-Language'] = 'ar';
-    // AppRouter.router.configuration.navigatorKey.currentContext?.isArabic ??
-    //         true
-    //     ? 'ar'
-    //     : 'en';
     super.initState();
-    _initializePages();
+    // Only load home page initially
+    _getPage(0);
   }
 
-  Future<void> _initializePages() async {
-    // final prefs = await SharedPreferences.getInstance();
-    // bool isGuestMode = prefs.getBool('isGuestMode') ?? true;
-    setState(() {
-      // Ensure we have one page per bottom nav item (4 items)
-      _pages = [];
+  Widget _getPage(int index) {
+    if (_cachedPages.containsKey(index)) {
+      return _cachedPages[index]!;
+    }
 
-      _isLoading = false;
-    });
+    Widget page;
+    switch (index) {
+      case 0:
+        page = const HomeScreen();
+        break;
+      case 1:
+        page = const WishlistScreen();
+        break;
+      case 2:
+        page = const CartScreen();
+        break;
+      case 3:
+        page = const ProfileScreen();
+        break;
+      default:
+        page = const SizedBox.shrink();
+    }
+
+    _cachedPages[index] = page;
+    return page;
   }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      _getPage(index);
     });
+
+    // if (index != previousIndex) {
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     if (!mounted) return;
+    //     try {
+    //       switch (index) {
+    //         case 0:
+    //           context.read<GetPropertyBloc>().add(
+    //                 const LoadFirstPage<GetProperty>(params: null, query: null),
+    //               );
+    //           break;
+    //         case 1:
+    //           context.read<GetFavouriteBloc>().add(
+    //                 LoadFirstPage<GetFavouriteModel>(params: null, query: null),
+    //               );
+    //           break;
+    //         case 2:
+    //           context.read<GetBookingBloc>().add(
+    //                 LoadFirstPage<GetBooking>(params: null, query: null),
+    //               );
+    //           break;
+    //       }
+    //     } catch (_) {}
+    //   });
+    // }
   }
 
   Future<bool> _onWillPop() async {
-    if (_selectedIndex != 2) {
+    if (_selectedIndex != 0) {
       setState(() {
-        _selectedIndex = 2;
+        _selectedIndex = 0;
       });
       return false;
     } else {
@@ -60,9 +125,7 @@ class _BottomNavAppState extends State<BottomNavApp> {
       if (_lastBackPressed == null ||
           now.difference(_lastBackPressed!) > const Duration(seconds: 2)) {
         _lastBackPressed = now;
-        context.showTopSnackBar(
-          message: "pressAgain".tr(),
-        );
+        CustomErrorOverlay.show(context: context, text: "pressAgain".tr());
         return false;
       }
       return true;
@@ -71,111 +134,98 @@ class _BottomNavAppState extends State<BottomNavApp> {
 
   @override
   Widget build(BuildContext context) {
-    // Remove the following lines as prefs should not be fetched synchronously in build
-    // final prefs = SharedPreferences.getInstance();
-    // bool isMerchant = prefs.getBool('isMerchant') ?? false;
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final Color scaffoldColor =
+      isDarkMode ? const Color(0xFF111827) : AppColors.whiteColor;
+    final Color navBarColor =
+      isDarkMode ? const Color(0xFF111827) : AppColors.whiteColor;
+    final Color selectedItemBg = isDarkMode
+      ? const Color(0xFF21283B)
+      : AppColors.primaryColor.withValues(alpha: 0.14);
+    final Color selectedItemColor =
+      isDarkMode ? const Color(0xFF8EA2FF) : AppColors.primaryColor;
+    final Color unselectedItemColor =
+      isDarkMode ? const Color(0xFF8B95AA) : AppColors.greyColor;
 
-    // Instead, use _initializePages to set up _pages and loading state, including isMerchant
-    // Use _pages and _isLoading as already handled in the state
+    // Build children list with only loaded pages
+    final children = <Widget>[];
+    for (int i = 0; i < 4; i++) {
+      if (_cachedPages.containsKey(i)) {
+        children.add(_cachedPages[i]!);
+      } else {
+        children.add(const SizedBox.shrink());
+      }
+    }
 
     // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        body: _isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : IndexedStack(
-                index: _selectedIndex,
-                children: _pages,
-              ),
-        // Custom bottom navigation bar to allow an elevated selected icon
+        backgroundColor: scaffoldColor,
+        body: IndexedStack(index: _selectedIndex, children: children),
         bottomNavigationBar: Container(
-          color: context.isDarkMode ? const Color(0xFF171B2C) : Colors.white,
-          padding: EdgeInsets.only(bottom: 8.h, left: 12.w, right: 12.w),
+          decoration: BoxDecoration(
+            color: navBarColor,
+            border: Border(
+              top: BorderSide(
+                color: isDarkMode ? Colors.white12 : const Color(0xFFE8ECF3),
+              ),
+            ),
+          ),
+          padding: EdgeInsets.only(bottom: 0, left: 8.w, right: 8.w),
           child: SafeArea(
             top: false,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(5, (index) {
-                // mapping assets and labels per index
-                final selectedAssets = [];
-                final unselectedAssets = [];
-                final labels = [
-                  'myJobs'.tr(),
-                  'categories'.tr(),
-                  'home'.tr(),
-                  'reports'.tr(),
-                  'settings'.tr()
-                ];
-
+              children: List.generate(_items.length, (index) {
                 final isSelected = _selectedIndex == index;
-
+                final item = _items[index];
+    
                 return Expanded(
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () => _onItemTapped(index),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Animated elevated circular icon for selected item
-                        Transform.translate(
-                          offset: Offset(0, isSelected ? -18.h : 0),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeOutCubic,
-                            width: isSelected ? 50.w : 40.w,
-                            height: isSelected ? 50.w : 40.w,
-                            decoration: BoxDecoration(
-                              color: isSelected
-                                  ? AppColors.primaryColor
-                                  : Colors.transparent,
-                              shape: BoxShape.circle,
-                              boxShadow: isSelected
-                                  ? [
-                                      BoxShadow(
-                                        color: AppColors.primaryColor
-                                            .withOpacity(0.22),
-                                        blurRadius: 8,
-                                        offset: const Offset(0, 4),
-                                      ),
-                                    ]
-                                  : null,
-                            ),
-                            alignment: Alignment.center,
-                            child: SvgPicture.asset(
-                              isSelected
-                                  ? selectedAssets[index]
-                                  : unselectedAssets[index],
-                              width: isSelected ? 30.w : 25.w,
-                              height: isSelected ? 30.w : 25.w,
-                              // colorize selected icon white inside the colored circle
-                              color: isSelected
-                                  ? Colors.white
-                                  : (context.isDarkMode
-                                      ? Colors.white70
-                                      : AppColors.greyColor),
-                            ),
-                          ),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeOut,
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      margin: EdgeInsets.symmetric(horizontal: 4.w),
+                      decoration: BoxDecoration(
+                        color:
+                            isSelected ? selectedItemBg : Colors.transparent,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(26.r),
+                          topRight: Radius.circular(26.r),
                         ),
-                        const SizedBox(height: 4),
-                        AnimatedDefaultTextStyle(
-                          duration: const Duration(milliseconds: 250),
-                          style: isSelected
-                              ? TextStyles.blackBold14.copyWith(
-                                  color: AppColors.primaryColor,
-                                  fontWeight: FontWeight.w700,
-                                )
-                              : TextStyles.blackBold14.copyWith(
-                                  color: AppColors.greyColor,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                          child: Text(
-                            labels[index],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            isSelected
+                                ? item.selectedIcon
+                                : item.unselectedIcon,
+                            size: 26.sp,
+                            color: isSelected
+                              ? selectedItemColor
+                                : unselectedItemColor,
+                          ),
+                          SizedBox(height: 6.h),
+                          Text(
+                            item.labelKey.tr(),
                             maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyles.blackBold14.copyWith(
+                              color: isSelected
+                                ? selectedItemColor
+                                  : unselectedItemColor,
+                              fontWeight: isSelected
+                                  ? FontWeight.w700
+                                  : FontWeight.w400,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -186,4 +236,16 @@ class _BottomNavAppState extends State<BottomNavApp> {
       ),
     );
   }
+}
+
+class _BottomNavItemData {
+  final String labelKey;
+  final IconData unselectedIcon;
+  final IconData selectedIcon;
+
+  const _BottomNavItemData({
+    required this.labelKey,
+    required this.unselectedIcon,
+    required this.selectedIcon,
+  });
 }
