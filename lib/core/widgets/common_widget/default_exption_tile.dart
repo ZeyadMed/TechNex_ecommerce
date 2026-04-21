@@ -37,15 +37,30 @@ class _DefaultExpansionTileState extends State<DefaultExpansionTile> {
   int? isSelected;
   String lastChoice = '';
 
+  bool get _usesDefaultPrimaryHeader => widget.backgroundColor == null;
+
+  Color get _resolvedHeaderTextColor {
+    if (_usesDefaultPrimaryHeader) {
+      return Colors.white;
+    }
+    return widget.textColor ?? AppColors.blackColor;
+  }
+
+  Color get _resolvedHeaderIconColor {
+    if (_usesDefaultPrimaryHeader) {
+      return Colors.white;
+    }
+    return widget.iconColor ?? AppColors.greyColor3;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: 3.h),
       child: ExpansionTile(
         tilePadding: const EdgeInsets.symmetric(horizontal: 10),
-        // Header should always use primary color background, so text stays white
-        collapsedTextColor: Colors.white,
-        textColor: Colors.white,
+        collapsedTextColor: _resolvedHeaderTextColor,
+        textColor: _resolvedHeaderTextColor,
         initiallyExpanded: widget.initiallyExpanded,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(widget.radius),
@@ -55,13 +70,11 @@ class _DefaultExpansionTileState extends State<DefaultExpansionTile> {
             side: !isOpen
                 ? const BorderSide(color: Colors.grey, width: 0.5)
                 : BorderSide.none),
-        // Keep header color as primary whether expanded or not
         backgroundColor: widget.backgroundColor ?? AppColors.primaryColor,
         collapsedBackgroundColor:
             widget.backgroundColor ?? AppColors.primaryColor,
-        // Icons on header should be white to contrast the primary background
-        iconColor: Colors.white,
-        collapsedIconColor: Colors.white,
+        iconColor: _resolvedHeaderIconColor,
+        collapsedIconColor: _resolvedHeaderIconColor,
         onExpansionChanged: (value) {
           setState(() {
             isOpen = value;
@@ -106,8 +119,8 @@ class _DefaultExpansionTileState extends State<DefaultExpansionTile> {
       widget.name,
       style: TextStyles.blackBold12.copyWith(
         fontSize: 15.sp,
-        color: isOpen ? Colors.white : widget.textColor ?? AppColors.blackColor,
-        fontWeight: FontWeight.w500,
+        color: _resolvedHeaderTextColor,
+        fontWeight: FontWeight.w700,
       ),
     );
   }

@@ -3,6 +3,8 @@ import 'package:e_commerce/features/auth/forget_password/presentation/forget_pas
 import 'package:e_commerce/features/auth/verify_otp/presentation/otp_screen.dart';
 import 'package:e_commerce/features/auth/change_password/presentation/change_password_screen.dart';
 import 'package:e_commerce/features/address/presentation/address_screen.dart';
+import 'package:e_commerce/features/profile/presentation/help_support_screen.dart';
+import 'package:e_commerce/features/profile/presentation/privacy_security_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:e_commerce/core/router/bottom_nav_app.dart';
 import 'package:e_commerce/features/auth/login/presentation/login_screen.dart';
@@ -32,6 +34,7 @@ abstract class AppRouter {
   static const String aboutUs = '/aboutUs';
   static const String updateProfileScreen = '/updateProfileScreen';
   static const String privacyPolicy = '/privacyPolicy';
+  static const String privacyAndSecurityScreen = '/privacyAndSecurityScreen';
   static const String addressesScreen = '/addressesScreen';
 
   static final GoRouter router = GoRouter(
@@ -79,6 +82,14 @@ abstract class AppRouter {
       GoRoute(
         path: addressesScreen,
         builder: (context, state) => const AddressScreen(),
+      ),
+      GoRoute(
+        path: customerServiceScreen,
+        builder: (context, state) => const HelpSupportScreen(),
+      ),
+      GoRoute(
+        path: privacyAndSecurityScreen,
+        builder: (context, state) => const PrivacySecurityScreen(),
       ),
     ],
   );

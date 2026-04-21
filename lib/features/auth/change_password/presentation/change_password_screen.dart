@@ -4,7 +4,7 @@ import 'package:e_commerce/core/helpers/validators.dart';
 import 'package:e_commerce/core/router/app_router.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
-import 'package:e_commerce/core/widgets/custom_text_field.dart';
+import 'package:e_commerce/core/widgets/stateful/custom_text_field.dart';
 import 'package:e_commerce/core/widgets/stateful/custom_button.dart';
 import 'package:e_commerce/core/widgets/stateless/logo_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
