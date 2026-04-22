@@ -10,6 +10,7 @@ class DefaultExpansionTile extends StatefulWidget {
   final List<Widget>? optionsWidget;
   final ValueChanged<int>? onTap;
   final Color? backgroundColor;
+  final Color? expandedBodyColor;
   final Color? iconColor;
   final Color? textColor;
   final double radius;
@@ -23,6 +24,7 @@ class DefaultExpansionTile extends StatefulWidget {
       this.onTap,
       this.optionsWidget,
       this.backgroundColor,
+      this.expandedBodyColor,
       this.iconColor,
       this.textColor,
       this.radius = 0,
@@ -87,7 +89,7 @@ class _DefaultExpansionTileState extends State<DefaultExpansionTile> {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: widget.expandedBodyColor ?? Colors.white,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(widget.radius),
                 bottomRight: Radius.circular(widget.radius),

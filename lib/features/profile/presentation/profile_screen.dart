@@ -4,6 +4,7 @@ import 'package:e_commerce/core/router/app_router.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
 import 'package:e_commerce/core/bloc/theme_bloc/theme_bloc.dart';
+import 'package:e_commerce/core/widgets/widgets.dart';
 import 'package:e_commerce/features/profile/presentation/widgets/profile_option_tile.dart';
 import 'package:e_commerce/features/profile/presentation/widgets/profile_stat_card.dart';
 import 'package:e_commerce/features/profile/presentation/widgets/recent_order_card.dart';
@@ -29,6 +30,64 @@ class ProfileScreen extends StatelessWidget {
     context
         .read<ThemeBloc>()
         .add(ThemeChanged(dark ? ThemeMode.light : ThemeMode.dark));
+  }
+
+  Future<void> _showLogoutDialog(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) {
+        final dialogDark = dialogContext.isDarkMode;
+        return AlertDialog(
+          backgroundColor: dialogDark ? const Color(0xFF1F2937) : Colors.white,
+          title: LocalizedLabel(
+            text: 'logoutConfirmTitle'.tr(),
+            style: TextStyles.blackBold20.copyWith(
+              color: dialogDark ? Colors.white : const Color(0xFF111827),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          content: LocalizedLabel(
+            text: 'logoutConfirmMessage'.tr(),
+            style: TextStyles.blackRegular16.copyWith(
+              color: dialogDark ? Colors.white70 : const Color(0xFF4B5563),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: LocalizedLabel(
+                text: 'cancel',
+                style: TextStyles.blackRegular16.copyWith(
+                  color: dialogDark ? Colors.white70 : const Color(0xFF6B7280),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => context.go(AppRouter.login),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.redColor2,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: LocalizedLabel(
+                text: 'yes',
+                style: TextStyles.blackRegular16.copyWith(
+                  color: AppColors.whiteColor,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed == true && context.mounted) {
+      context.go(AppRouter.login);
+    }
   }
 
   @override
@@ -78,7 +137,8 @@ class ProfileScreen extends StatelessWidget {
                         Text(
                           'recentOrders'.tr(),
                           style: TextStyles.blackBold20.copyWith(
-                            color: dark ? Colors.white : const Color(0xFF111827),
+                            color:
+                                dark ? Colors.white : const Color(0xFF111827),
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -119,52 +179,108 @@ class ProfileScreen extends StatelessWidget {
                     const Gap(14),
                     Container(
                       decoration: BoxDecoration(
-                        color:
-                            dark ? const Color(0xFF21283B) : AppColors.whiteColor,
+                        color: dark
+                            ? const Color(0xFF21283B)
+                            : AppColors.whiteColor,
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Column(
                         children: [
                           ProfileOptionTile(
                             icon: Icons.inventory_2_outlined,
-                            title: 'myOrders'.tr(),
+                            titleKey: 'myOrders',
                             badgeText: '3',
                             onTap: () {},
                           ),
                           ProfileOptionTile(
                             icon: Icons.location_on_outlined,
-                            title: 'addresses'.tr(),
-                            onTap: () => context.push(AppRouter.addressesScreen),
+                            titleKey: 'addresses',
+                            onTap: () =>
+                                context.push(AppRouter.addressesScreen),
                           ),
                           ProfileOptionTile(
                             icon: Icons.notifications_none_rounded,
-                            title: 'notifications'.tr(),
+                            titleKey: 'notifications',
                             onTap: () {},
                           ),
                           ProfileOptionTile(
                             icon: Icons.language,
-                            title:
-                                'changeLanguage'.tr(),
+                            titleKey: 'changeLanguage',
                             onTap: () => _toggleLanguageAndGoRoot(context),
                           ),
                           ProfileOptionTile(
                             icon: dark ? Icons.light_mode : Icons.dark_mode,
-                            title: dark
-                                ? 'lightThemeMode'.tr()
-                                : 'darkThemeMode'.tr(),
+                            titleKey:
+                                dark ? 'lightThemeMode' : 'darkThemeMode',
                             onTap: () => _toggleTheme(context),
                           ),
                           ProfileOptionTile(
                             icon: Icons.privacy_tip_outlined,
-                            title: 'privacyAndSecurity'.tr(),
-                            onTap: () => context.push(AppRouter.privacyAndSecurityScreen),
+                            titleKey: 'privacyAndSecurity',
+                            onTap: () => context
+                                .push(AppRouter.privacyAndSecurityScreen),
                           ),
                           ProfileOptionTile(
                             icon: Icons.contact_support_outlined,
-                            title: 'helpAndSupport'.tr(),
-                            onTap: () => context.push(AppRouter.customerServiceScreen),
+                            titleKey: 'helpAndSupport',
+                            onTap: () =>
+                                context.push(AppRouter.customerServiceScreen),
                           ),
                         ],
+                      ),
+                    ),
+                    const Gap(10),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () => _showLogoutDialog(context),
+                        child: Ink(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 14, horizontal: 16),
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [Color(0xFFFF6B6B), Color(0xFFE63946)],
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: const Color(0xFFE63946)
+                                    .withValues(alpha: 0.25),
+                                blurRadius: 12,
+                                offset: const Offset(0, 6),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Icon(
+                                  Icons.logout_rounded,
+                                  color: AppColors.whiteColor,
+                                  size: 24,
+                                ),
+                              ),
+                              const Gap(12),
+                              Expanded(
+                                child: LocalizedLabel(
+                                  text: 'logout',
+                                  style: TextStyles.blackBold16.copyWith(
+                                    color: AppColors.whiteColor,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     const Gap(10),

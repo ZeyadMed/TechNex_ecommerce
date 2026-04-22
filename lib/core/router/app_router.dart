@@ -3,6 +3,7 @@ import 'package:e_commerce/features/auth/forget_password/presentation/forget_pas
 import 'package:e_commerce/features/auth/verify_otp/presentation/otp_screen.dart';
 import 'package:e_commerce/features/auth/change_password/presentation/change_password_screen.dart';
 import 'package:e_commerce/features/address/presentation/address_screen.dart';
+import 'package:e_commerce/features/cart/presentation/checkout_flow_screen.dart';
 import 'package:e_commerce/features/profile/presentation/help_support_screen.dart';
 import 'package:e_commerce/features/profile/presentation/privacy_security_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -36,6 +37,7 @@ abstract class AppRouter {
   static const String privacyPolicy = '/privacyPolicy';
   static const String privacyAndSecurityScreen = '/privacyAndSecurityScreen';
   static const String addressesScreen = '/addressesScreen';
+  static const String checkoutFlowScreen = '/checkoutFlowScreen';
 
   static final GoRouter router = GoRouter(
     navigatorKey: navigatorKey,
@@ -82,6 +84,12 @@ abstract class AppRouter {
       GoRoute(
         path: addressesScreen,
         builder: (context, state) => const AddressScreen(),
+      ),
+      GoRoute(
+        path: checkoutFlowScreen,
+        builder: (context, state) => CheckoutFlowScreen(
+          cartItems: (state.extra as List<Map<String, dynamic>>?) ?? const [],
+        ),
       ),
       GoRoute(
         path: customerServiceScreen,

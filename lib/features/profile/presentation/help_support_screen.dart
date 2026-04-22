@@ -110,6 +110,8 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
                       name: item.qKey.tr(),
                       radius: 14,
                       backgroundColor: cardBg,
+                      expandedBodyColor:
+                          dark ? const Color(0xFF1D2434) : Colors.white,
                       textColor: dark ? Colors.white : const Color(0xFF111827),
                       iconColor:
                           dark ? Colors.white54 : const Color(0xFF98A2B3),
@@ -119,9 +121,7 @@ class _HelpSupportScreenState extends State<HelpSupportScreen> {
                           child: Text(
                             item.aKey.tr(),
                             style: TextStyles.blackRegular14.copyWith(
-                              color: dark
-                                  ? Colors.white70
-                                  : const Color(0xFF667085),
+                              color: dark ? Colors.white : const Color(0xFF667085),
                               fontWeight: FontWeight.w400,
                               height: 1.45,
                             ),

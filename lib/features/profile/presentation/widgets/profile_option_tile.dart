@@ -1,11 +1,12 @@
 import 'package:e_commerce/core/extensions/extensions.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
+import 'package:e_commerce/core/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class ProfileOptionTile extends StatelessWidget {
   final IconData icon;
-  final String title;
+  final String titleKey;
   final String? badgeText;
   final VoidCallback? onTap;
   final bool showDivider;
@@ -13,7 +14,7 @@ class ProfileOptionTile extends StatelessWidget {
   const ProfileOptionTile({
     super.key,
     required this.icon,
-    required this.title,
+    required this.titleKey,
     this.badgeText,
     this.onTap,
     this.showDivider = true,
@@ -44,8 +45,8 @@ class ProfileOptionTile extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: Text(
-                      title,
+                    child: LocalizedLabel(
+                      text: titleKey,
                       style: TextStyles.blackBold16.copyWith(
                         color: dark ? Colors.white : const Color(0xFF1A202C),
                         fontWeight: FontWeight.w500,
