@@ -143,11 +143,14 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Text(
-                          'viewAll'.tr(),
-                          style: TextStyles.blackRegular14.copyWith(
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.w600,
+                        GestureDetector(
+                          onTap: () => context.push(AppRouter.myOrdersScreen),
+                          child: Text(
+                            'viewAll'.tr(),
+                            style: TextStyles.blackRegular14.copyWith(
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 2),

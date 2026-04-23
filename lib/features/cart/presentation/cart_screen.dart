@@ -171,6 +171,7 @@ class _CartScreenState extends State<CartScreen> {
                                   style: TextStyles.blackBold20.copyWith(
                                     color: dark ? Colors.white : const Color(0xFF111827),
                                     fontWeight: FontWeight.w700,
+                                    fontSize: context.responsiveValue(mobile: 18.0, smallMobile: 14.0, tablet: 20.0),
                                   ),
                                 ),
                               ),
@@ -179,6 +180,7 @@ class _CartScreenState extends State<CartScreen> {
                                 style: TextStyles.blackBold20.copyWith(
                                   color: dark ? Colors.white : const Color(0xFF111827),
                                   fontWeight: FontWeight.w800,
+                                  fontSize: context.responsiveValue(mobile: 18.0, smallMobile: 14.0, tablet: 20.0),
                                 ),
                               ),
                             ],
@@ -341,7 +343,7 @@ class _CartItemCard extends StatelessWidget {
               children: [
                 LocalizedLabel(
                   text: item.titleKey,
-                  style: TextStyles.blackBold20.copyWith(
+                  style: TextStyles.blackBold16.copyWith(
                     color: dark ? Colors.white : const Color(0xFF111827),
                     fontWeight: FontWeight.w700,
                   ),
@@ -375,6 +377,7 @@ class _CartItemCard extends StatelessWidget {
                       style: TextStyles.blackBold20.copyWith(
                         color: dark ? Colors.white : const Color(0xFF111827),
                         fontWeight: FontWeight.w800,
+                        fontSize: 18
                       ),
                     ),
                   ],
@@ -446,7 +449,7 @@ class _SummaryRow extends StatelessWidget {
           Expanded(
             child: LocalizedLabel(
               text: titleKey,
-              style: TextStyles.blackRegular16.copyWith(
+              style: TextStyles.blackRegular14.copyWith(
                 color: dark ? Colors.white70 : const Color(0xFF475467),
                 fontWeight: FontWeight.w600,
               ),
