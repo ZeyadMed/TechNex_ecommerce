@@ -172,7 +172,7 @@ class WishlistScreen extends StatelessWidget {
                           crossAxisCount: 2,
                           mainAxisSpacing: spacing,
                           crossAxisSpacing: spacing,
-                          mainAxisExtent: imageHeight + context.responsiveValue(mobile: 154.0, smallMobile: 150.0, tablet: 166.0),
+                          mainAxisExtent: imageHeight + context.responsiveValue(mobile: 132.0, smallMobile: 126.0, tablet: 144.0),
                         ),
                       );
                     },
