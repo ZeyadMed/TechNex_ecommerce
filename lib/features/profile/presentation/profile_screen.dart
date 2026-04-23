@@ -190,7 +190,7 @@ class ProfileScreen extends StatelessWidget {
                             icon: Icons.inventory_2_outlined,
                             titleKey: 'myOrders',
                             badgeText: '3',
-                            onTap: () {},
+                            onTap: () => context.push(AppRouter.myOrdersScreen),
                           ),
                           ProfileOptionTile(
                             icon: Icons.location_on_outlined,
@@ -201,7 +201,7 @@ class ProfileScreen extends StatelessWidget {
                           ProfileOptionTile(
                             icon: Icons.notifications_none_rounded,
                             titleKey: 'notifications',
-                            onTap: () {},
+                            onTap: () => context.push(AppRouter.notificationScreen),
                           ),
                           ProfileOptionTile(
                             icon: Icons.language,

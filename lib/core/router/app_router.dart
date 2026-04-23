@@ -5,6 +5,11 @@ import 'package:e_commerce/features/auth/change_password/presentation/change_pas
 import 'package:e_commerce/features/address/presentation/address_screen.dart';
 import 'package:e_commerce/features/cart/presentation/checkout_flow_screen.dart';
 import 'package:e_commerce/features/profile/presentation/help_support_screen.dart';
+import 'package:e_commerce/features/profile/presentation/models/track_order_models.dart';
+import 'package:e_commerce/features/profile/presentation/my_orders_screen.dart';
+import 'package:e_commerce/features/profile/presentation/notification_screen.dart';
+import 'package:e_commerce/features/profile/presentation/track_order_screen.dart';
+import 'package:e_commerce/features/profile/presentation/widgets/order_status_chip.dart';
 import 'package:e_commerce/features/profile/presentation/privacy_security_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:e_commerce/core/router/bottom_nav_app.dart';
@@ -31,6 +36,8 @@ abstract class AppRouter {
   static const String profileScreen = '/profileScreen';
   static const String contactUsScreen = '/contactUsScreen';
   static const String notificationScreen = '/notificationScreen';
+  static const String myOrdersScreen = '/myOrdersScreen';
+  static const String trackOrderScreen = '/trackOrderScreen';
   static const String customerServiceScreen = '/customerServiceScreen';
   static const String aboutUs = '/aboutUs';
   static const String updateProfileScreen = '/updateProfileScreen';
@@ -94,6 +101,25 @@ abstract class AppRouter {
       GoRoute(
         path: customerServiceScreen,
         builder: (context, state) => const HelpSupportScreen(),
+      ),
+      GoRoute(
+        path: notificationScreen,
+        builder: (context, state) => const NotificationScreen(),
+      ),
+      GoRoute(
+        path: myOrdersScreen,
+        builder: (context, state) => const MyOrdersScreen(),
+      ),
+      GoRoute(
+        path: trackOrderScreen,
+        builder: (context, state) => TrackOrderScreen(
+          args: (state.extra as TrackOrderArgs?) ?? TrackOrderArgs.sample(
+            orderId: 'ORD123456',
+            amount: r'$527.04',
+            imageAsset: 'assets/images/guest.png',
+            status: OrderStatus.inTransit,
+          ),
+        ),
       ),
       GoRoute(
         path: privacyAndSecurityScreen,
