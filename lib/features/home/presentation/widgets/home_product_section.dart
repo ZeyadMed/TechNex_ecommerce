@@ -8,12 +8,14 @@ class HomeProductSection extends StatelessWidget {
   final String titleKey;
   final IconData icon;
   final List<HomeProductData> products;
+  final VoidCallback? onSeeAllTap;
 
   const HomeProductSection({
     super.key,
     required this.titleKey,
     required this.icon,
     required this.products,
+    this.onSeeAllTap,
   });
 
   @override
@@ -37,18 +39,26 @@ class HomeProductSection extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              'seeAll'.tr(),
-              style: TextStyles.blueRegular15.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: context.responsiveValue(mobile: 14.0, smallMobile: 12.0, tablet: 14.0),
+            GestureDetector(
+              onTap: onSeeAllTap,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'seeAll'.tr(),
+                    style: TextStyles.blueRegular15.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: context.responsiveValue(mobile: 14.0, smallMobile: 12.0, tablet: 14.0),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    size: 18,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(width: 4),
-            Icon(
-              Icons.chevron_right_rounded,
-              size: 18,
-              color: Theme.of(context).colorScheme.primary,
             ),
           ],
         ),

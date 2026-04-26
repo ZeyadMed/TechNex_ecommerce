@@ -5,7 +5,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeCategoriesSection extends StatelessWidget {
-  const HomeCategoriesSection({super.key});
+  final ValueChanged<HomeCategoryData>? onCategoryTap;
+
+  const HomeCategoriesSection({super.key, this.onCategoryTap});
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +64,19 @@ class HomeCategoriesSection extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              HomeCategoryCard(data: first),
+                              HomeCategoryCard(
+                                data: first,
+                                onTap: () => onCategoryTap?.call(first),
+                              ),
                               if (second != null)
                                 Padding(
                                   padding: EdgeInsets.only(
                                     top: context.responsiveValue(mobile: 8.0, smallMobile: 6.0, tablet: 10.0),
                                   ),
-                                  child: HomeCategoryCard(data: second),
+                                  child: HomeCategoryCard(
+                                    data: second,
+                                    onTap: () => onCategoryTap?.call(second),
+                                  ),
                                 ),
                             ],
                           ),
@@ -87,8 +95,9 @@ class HomeCategoriesSection extends StatelessWidget {
 
 class HomeCategoryCard extends StatelessWidget {
   final HomeCategoryData data;
+  final VoidCallback? onTap;
 
-  const HomeCategoryCard({super.key, required this.data});
+  const HomeCategoryCard({super.key, required this.data, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -97,52 +106,59 @@ class HomeCategoryCard extends StatelessWidget {
     final double innerPadding = context.responsiveValue(mobile: 10.0, smallMobile: 8.0, tablet: 12.0);
     final double textSpacing = context.responsiveValue(mobile: 6.0, smallMobile: 4.0, tablet: 8.0);
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: innerPadding, vertical: innerPadding),
-      decoration: BoxDecoration(
-        color: dark ? const Color(0xFF1F2937) : AppColors.whiteColor,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
         borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: dark ? Colors.black.withValues(alpha: 0.14) : const Color(0x0F0F172A),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: iconSize * 2,
-            width: iconSize * 2,
-            decoration: BoxDecoration(
-              color: const Color(0xFFDEE7FF),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Icon(
-              data.icon,
-              size: iconSize,
-              color: const Color(0xFF3B46F6),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: textSpacing),
-            child: Text(
-              data.titleKey.tr(),
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyles.blackRegular14.copyWith(
-                fontSize: context.responsiveValue(mobile: 11.5, smallMobile: 11.0, tablet: 13.0),
-                color: dark ? Colors.white : const Color(0xFF1F2937),
-                fontWeight: FontWeight.w600,
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: innerPadding, vertical: innerPadding),
+          decoration: BoxDecoration(
+            color: dark ? const Color(0xFF1F2937) : AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(18),
+            boxShadow: [
+              BoxShadow(
+                color: dark ? Colors.black.withValues(alpha: 0.14) : const Color(0x0F0F172A),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
               ),
-            ),
+            ],
           ),
-        ],
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: iconSize * 2,
+                width: iconSize * 2,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFDEE7FF),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(
+                  data.icon,
+                  size: iconSize,
+                  color: const Color(0xFF3B46F6),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: textSpacing),
+                child: Text(
+                  data.titleKey.tr(),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyles.blackRegular14.copyWith(
+                    fontSize: context.responsiveValue(mobile: 11.5, smallMobile: 11.0, tablet: 13.0),
+                    color: dark ? Colors.white : const Color(0xFF1F2937),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

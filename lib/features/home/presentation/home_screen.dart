@@ -4,6 +4,8 @@ import 'package:e_commerce/features/home/presentation/widgets/home_categories_se
 import 'package:e_commerce/features/home/presentation/widgets/home_header.dart';
 import 'package:e_commerce/features/home/presentation/widgets/home_product_section.dart';
 import 'package:e_commerce/features/home/presentation/widgets/product_card.dart';
+import 'package:e_commerce/features/category/presentation/category_products_screen.dart';
+import 'package:e_commerce/features/home/presentation/home_section_products_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,6 +20,84 @@ class HomeScreen extends StatelessWidget {
       smallMobile: double.infinity,
       tablet: 720,
     );
+
+    final List<HomeProductData> flashDealsProducts = const [
+      HomeProductData(
+        imageAsset: 'assets/images/guest.png',
+        badgeText: 'Bestseller',
+        title: 'Premium Wireless Headphones',
+        rating: '4.8',
+        reviews: '1247',
+        currentPrice: r'$299',
+        oldPrice: r'$399',
+      ),
+      HomeProductData(
+        imageAsset: 'assets/images/buy_sell.jpg',
+        badgeText: 'New',
+        title: 'Designer Sneakers',
+        rating: '4.6',
+        reviews: '892',
+        currentPrice: r'$189',
+        oldPrice: r'$249',
+      ),
+      HomeProductData(
+        imageAsset: 'assets/images/upload.png',
+        badgeText: 'Premium',
+        title: 'Luxury Automatic Watch',
+        rating: '4.9',
+        reviews: '610',
+        currentPrice: r'$499',
+        oldPrice: r'$629',
+      ),
+      HomeProductData(
+        imageAsset: 'assets/images/Logta.jpeg',
+        badgeText: 'Trending',
+        title: 'Wireless Earbuds Pro',
+        rating: '4.7',
+        reviews: '782',
+        currentPrice: r'$149',
+        oldPrice: r'$199',
+      ),
+    ];
+
+    final List<HomeProductData> trendingProducts = const [
+      HomeProductData(
+        imageAsset: 'assets/images/fastShare.png',
+        badgeText: 'Bestseller',
+        title: 'Premium Wireless Headphones',
+        rating: '4.8',
+        reviews: '1247',
+        currentPrice: r'$299',
+        oldPrice: r'$399',
+      ),
+      HomeProductData(
+        imageAsset: 'assets/images/buy_sell.jpg',
+        badgeText: 'New',
+        title: 'Designer Sneakers',
+        rating: '4.6',
+        reviews: '892',
+        currentPrice: r'$189',
+        oldPrice: r'$249',
+      ),
+      HomeProductData(
+        imageAsset: 'assets/images/upload.png',
+        badgeText: 'Premium',
+        title: 'Luxury Automatic Watch',
+        rating: '4.9',
+        reviews: '610',
+        currentPrice: r'$499',
+        oldPrice: r'$629',
+      ),
+      HomeProductData(
+        imageAsset: 'assets/images/Logta_logo_light.jpeg',
+        badgeText: 'Trending',
+        title: 'Premium Leather Backpack',
+        rating: '4.7',
+        reviews: '520',
+        currentPrice: r'$219',
+        oldPrice: r'$289',
+      ),
+    ];
 
     return Scaffold(
       backgroundColor: backgroundColor,
@@ -51,92 +131,48 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 18),
-                          const HomeCategoriesSection(),
+                          HomeCategoriesSection(
+                            onCategoryTap: (category) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => CategoryProductsScreen(
+                                    categoryKey: category.titleKey,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                           const SizedBox(height: 18),
                           HomeProductSection(
                             titleKey: 'flashDeals',
                             icon: Icons.flash_on_rounded,
-                            products: const [
-                              HomeProductData(
-                                imageAsset: 'assets/images/guest.png',
-                                badgeText: 'Bestseller',
-                                title: 'Premium Wireless Headphones',
-                                rating: '4.8',
-                                reviews: '1247',
-                                currentPrice: r'$299',
-                                oldPrice: r'$399',
-                              ),
-                              HomeProductData(
-                                imageAsset: 'assets/images/buy_sell.jpg',
-                                badgeText: 'New',
-                                title: 'Designer Sneakers',
-                                rating: '4.6',
-                                reviews: '892',
-                                currentPrice: r'$189',
-                                oldPrice: r'$249',
-                              ),
-                              HomeProductData(
-                                imageAsset: 'assets/images/upload.png',
-                                badgeText: 'Premium',
-                                title: 'Luxury Automatic Watch',
-                                rating: '4.9',
-                                reviews: '610',
-                                currentPrice: r'$499',
-                                oldPrice: r'$629',
-                              ),
-                              HomeProductData(
-                                imageAsset: 'assets/images/Logta.jpeg',
-                                badgeText: 'Trending',
-                                title: 'Wireless Earbuds Pro',
-                                rating: '4.7',
-                                reviews: '782',
-                                currentPrice: r'$149',
-                                oldPrice: r'$199',
-                              ),
-                            ],
+                            products: flashDealsProducts,
+                            onSeeAllTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => HomeSectionProductsScreen(
+                                    titleKey: 'flashDeals',
+                                    products: flashDealsProducts,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                           const SizedBox(height: 18),
                           HomeProductSection(
                             titleKey: 'trendingNow',
                             icon: Icons.trending_up_rounded,
-                            products: const [
-                              HomeProductData(
-                                imageAsset: 'assets/images/fastShare.png',
-                                badgeText: 'Bestseller',
-                                title: 'Premium Wireless Headphones',
-                                rating: '4.8',
-                                reviews: '1247',
-                                currentPrice: r'$299',
-                                oldPrice: r'$399',
-                              ),
-                              HomeProductData(
-                                imageAsset: 'assets/images/buy_sell.jpg',
-                                badgeText: 'New',
-                                title: 'Designer Sneakers',
-                                rating: '4.6',
-                                reviews: '892',
-                                currentPrice: r'$189',
-                                oldPrice: r'$249',
-                              ),
-                              HomeProductData(
-                                imageAsset: 'assets/images/upload.png',
-                                badgeText: 'Premium',
-                                title: 'Luxury Automatic Watch',
-                                rating: '4.9',
-                                reviews: '610',
-                                currentPrice: r'$499',
-                                oldPrice: r'$629',
-                              ),
-                              HomeProductData(
-                                imageAsset: 'assets/images/Logta_logo_light.jpeg',
-                                badgeText: 'Trending',
-                                title: 'Premium Leather Backpack',
-                                rating: '4.7',
-                                reviews: '520',
-                                currentPrice: r'$219',
-                                oldPrice: r'$289',
-                              ),
-                            ],
+                            products: trendingProducts,
+                            onSeeAllTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => HomeSectionProductsScreen(
+                                    titleKey: 'trendingNow',
+                                    products: trendingProducts,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                           const SizedBox(height: 18),
                         ],

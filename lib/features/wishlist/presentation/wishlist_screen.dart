@@ -151,7 +151,9 @@ class WishlistScreen extends StatelessWidget {
                     builder: (context, constraints) {
                       final double width = constraints.crossAxisExtent;
                       final double spacing = context.responsiveValue(mobile: 12.0, smallMobile: 10.0, tablet: 16.0);
-                      final double itemWidth = (width - spacing) / 2;
+                      final double minCardWidth = context.responsiveValue(mobile: 154.0, smallMobile: 148.0, tablet: 200.0);
+                      final int crossAxisCount = (width / (minCardWidth + spacing)).floor().clamp(2, 4);
+                      final double itemWidth = (width - (crossAxisCount - 1) * spacing) / crossAxisCount;
                       final double imageHeight = itemWidth * 0.74;
 
                       return SliverGrid(
@@ -169,7 +171,7 @@ class WishlistScreen extends StatelessWidget {
                           childCount: products.length,
                         ),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
+                          crossAxisCount: crossAxisCount,
                           mainAxisSpacing: spacing,
                           crossAxisSpacing: spacing,
                           mainAxisExtent: imageHeight + context.responsiveValue(mobile: 132.0, smallMobile: 126.0, tablet: 144.0),
