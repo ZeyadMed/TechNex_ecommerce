@@ -49,24 +49,6 @@ class HomeHeader extends StatelessWidget {
               ),
             ],
           ),
-          // const Spacer(),
-          // InkWell(
-          //   borderRadius: BorderRadius.circular(999),
-          //   onTap: onNotificationTap,
-          //   child: Container(
-          //     height: 44,
-          //     width: 44,
-          //     decoration: BoxDecoration(
-          //       color: dark ? const Color(0xFF1F2937) : const Color(0xFFF3F4F6),
-          //       shape: BoxShape.circle,
-          //     ),
-          //     child: const Icon(
-          //       Icons.notifications_none_rounded,
-          //       color: Color(0xFFC59A00),
-          //       size: 24,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
