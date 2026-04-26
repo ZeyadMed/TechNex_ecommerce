@@ -271,16 +271,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               '${widget.product.reviews} ${'reviews'.tr()}',
                               style: TextStyles.blackRegular16.copyWith(color: mutedColor, fontWeight: FontWeight.w600),
                             ),
-                            if (widget.product.stockCount != null) ...[
-                              Container(width: 1, height: 18, color: dark ? Colors.white24 : const Color(0xFFD0D5DD)),
-                              Text(
-                                '${widget.product.stockCount} ${'inStock'.tr()}',
-                                style: TextStyles.blackRegular16.copyWith(
-                                  color: const Color(0xFF16A34A),
-                                  fontWeight: FontWeight.w700,
-                                ),
+                            Container(width: 1, height: 18, color: dark ? Colors.white24 : const Color(0xFFD0D5DD)),
+                            Text(
+                              outOfStock ? 'outOfStock'.tr() : 'inStock'.tr(),
+                              style: TextStyles.blackRegular16.copyWith(
+                                color: outOfStock ? const Color(0xFFDC2626) : const Color(0xFF16A34A),
+                                fontWeight: FontWeight.w700,
                               ),
-                            ],
+                            ),
                           ],
                         ),
                         const SizedBox(height: 14),
