@@ -3,7 +3,9 @@ import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
 import 'package:e_commerce/core/widgets/common_widget/custom_app_bar.dart';
 import 'package:e_commerce/features/category/presentation/widgets/category_filter_drawer.dart';
+import 'package:e_commerce/features/home/presentation/product_details_screen.dart';
 import 'package:e_commerce/features/home/presentation/widgets/product_card.dart';
+import 'package:e_commerce/features/wishlist/presentation/wishlist_store.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -217,8 +219,14 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                               data: item.product,
                               width: itemWidth,
                               imageHeight: imageHeight,
-                              onTap: () {},
-                              onFavoriteTap: () {},
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => ProductDetailsScreen(product: item.product),
+                                  ),
+                                );
+                              },
+                              onFavoriteTap: () => WishlistStore.toggle(item.product),
                             );
                           },
                           childCount: products.length,
@@ -271,10 +279,17 @@ const List<_CategoryProductItem> _allProducts = [
       imageAsset: 'assets/images/guest.png',
       badgeText: 'Bestseller',
       title: 'Premium Wireless Headphones',
+      description:
+          'Experience superior sound quality with active noise cancellation and 30-hour battery life. Premium materials and ergonomic design for all-day comfort.',
       rating: '4.8',
       reviews: '1247',
       currentPrice: r'$299',
       oldPrice: r'$399',
+      stockCount: 45,
+      availableColors: ['White', 'Black', 'Silver'],
+      availableSizes: ['M', 'L'],
+      unavailableColors: ['Gold'],
+      unavailableSizes: ['XL'],
     ),
   ),
   _CategoryProductItem(

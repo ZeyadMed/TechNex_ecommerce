@@ -56,6 +56,7 @@ dependencies:
   carousel_slider: ^5.1.1
   font_awesome_flutter: ^10.8.0
   pin_code_text_field: ^1.8.0
+  share_plus: ^10.1.4
 
 dev_dependencies:
   hive_generator: ^2.0.1

@@ -24,12 +24,24 @@ class HomeScreen extends StatelessWidget {
     final List<HomeProductData> flashDealsProducts = const [
       HomeProductData(
         imageAsset: 'assets/images/guest.png',
+        galleryImages: [
+          'assets/images/guest.png',
+          'assets/images/buy_sell.jpg',
+          'assets/images/Logta.jpeg',
+        ],
         badgeText: 'Bestseller',
         title: 'Premium Wireless Headphones',
+        description:
+            'Experience superior sound quality with active noise cancellation and 30-hour battery life. Premium materials and ergonomic design for all-day comfort.',
         rating: '4.8',
         reviews: '1247',
         currentPrice: r'$299',
         oldPrice: r'$399',
+        stockCount: 45,
+        availableColors: ['White', 'Black', 'Silver'],
+        availableSizes: ['M', 'L'],
+        unavailableColors: ['Gold'],
+        unavailableSizes: ['XL'],
       ),
       HomeProductData(
         imageAsset: 'assets/images/buy_sell.jpg',
@@ -56,19 +68,32 @@ class HomeScreen extends StatelessWidget {
         rating: '4.7',
         reviews: '782',
         currentPrice: r'$149',
-        oldPrice: r'$199',
+        oldPrice: null,
+        stockCount: 31,
       ),
     ];
 
     final List<HomeProductData> trendingProducts = const [
       HomeProductData(
         imageAsset: 'assets/images/fastShare.png',
+        galleryImages: [
+          'assets/images/fastShare.png',
+          'assets/images/guest.png',
+          'assets/images/upload.png',
+        ],
         badgeText: 'Bestseller',
         title: 'Premium Wireless Headphones',
+        description:
+            'Experience superior sound quality with active noise cancellation and 30-hour battery life. Premium materials and ergonomic design for all-day comfort.',
         rating: '4.8',
         reviews: '1247',
         currentPrice: r'$299',
         oldPrice: r'$399',
+        stockCount: 45,
+        availableColors: ['White', 'Black', 'Silver'],
+        availableSizes: ['M', 'L'],
+        unavailableColors: ['Gold'],
+        unavailableSizes: ['XL'],
       ),
       HomeProductData(
         imageAsset: 'assets/images/buy_sell.jpg',

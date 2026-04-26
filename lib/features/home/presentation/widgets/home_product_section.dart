@@ -1,6 +1,8 @@
 import 'package:e_commerce/core/extensions/extensions.dart';
+import 'package:e_commerce/features/home/presentation/product_details_screen.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
 import 'package:e_commerce/features/home/presentation/widgets/product_card.dart';
+import 'package:e_commerce/features/wishlist/presentation/wishlist_store.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -74,8 +76,14 @@ class HomeProductSection extends StatelessWidget {
                 ),
                 child: ProductCard(
                   data: products[index],
-                  onFavoriteTap: () {},
-                  onTap: () {},
+                  onFavoriteTap: () => WishlistStore.toggle(products[index]),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => ProductDetailsScreen(product: products[index]),
+                      ),
+                    );
+                  },
                 ),
               );
             }),

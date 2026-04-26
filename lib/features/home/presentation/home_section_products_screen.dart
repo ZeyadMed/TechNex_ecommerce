@@ -2,8 +2,10 @@ import 'package:e_commerce/core/extensions/extensions.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
 import 'package:e_commerce/core/widgets/common_widget/custom_app_bar.dart';
+import 'package:e_commerce/features/home/presentation/product_details_screen.dart';
 import 'package:e_commerce/features/home/presentation/widgets/home_section_filter_drawer.dart';
 import 'package:e_commerce/features/home/presentation/widgets/product_card.dart';
+import 'package:e_commerce/features/wishlist/presentation/wishlist_store.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -110,7 +112,7 @@ class _HomeSectionProductsScreenState extends State<HomeSectionProductsScreen> {
                 color: dark ? Colors.white70 : const Color(0xFF344054),
               ),
               label: Text(
-                'Filters',
+                'filters'.tr(),
                 style: TextStyles.blackBold14.copyWith(
                   color: dark ? Colors.white : const Color(0xFF344054),
                   fontWeight: FontWeight.w700,
@@ -197,8 +199,14 @@ class _HomeSectionProductsScreenState extends State<HomeSectionProductsScreen> {
                               data: item,
                               width: itemWidth,
                               imageHeight: imageHeight,
-                              onTap: () {},
-                              onFavoriteTap: () {},
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => ProductDetailsScreen(product: item),
+                                  ),
+                                );
+                              },
+                              onFavoriteTap: () => WishlistStore.toggle(item),
                             );
                           },
                           childCount: products.length,

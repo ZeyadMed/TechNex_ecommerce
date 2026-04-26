@@ -1,6 +1,7 @@
 import 'package:e_commerce/core/extensions/extensions.dart';
 import 'package:e_commerce/core/theme/app_colors.dart';
 import 'package:e_commerce/core/theme/text_styles.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeSectionFilterDrawer extends StatelessWidget {
@@ -30,11 +31,11 @@ class HomeSectionFilterDrawer extends StatelessWidget {
   static const String sortLowestRating = 'lowestRating';
 
   static const List<_SortOption> _sortOptions = [
-    _SortOption(key: sortFeatured, title: 'Featured'),
-    _SortOption(key: sortPriceLowToHigh, title: 'Price : Low to high'),
-    _SortOption(key: sortPriceHighToLow, title: 'Price : High to low'),
-    _SortOption(key: sortHighestRating, title: 'Highest rating'),
-    _SortOption(key: sortLowestRating, title: 'Lowest rating'),
+    _SortOption(key: sortFeatured, titleKey: 'featured'),
+    _SortOption(key: sortPriceLowToHigh, titleKey: 'sortPriceLowToHigh'),
+    _SortOption(key: sortPriceHighToLow, titleKey: 'sortPriceHighToLow'),
+    _SortOption(key: sortHighestRating, titleKey: 'sortHighestRating'),
+    _SortOption(key: sortLowestRating, titleKey: 'sortLowestRating'),
   ];
 
   @override
@@ -64,7 +65,7 @@ class HomeSectionFilterDrawer extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'Filters',
+                      'filters'.tr(),
                       style: TextStyles.blackBold20.copyWith(
                         color: titleColor,
                         fontWeight: FontWeight.w800,
@@ -84,7 +85,7 @@ class HomeSectionFilterDrawer extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20, 18, 20, 12),
                 children: [
                   Text(
-                    'Sort By',
+                    'sortBy'.tr(),
                     style: TextStyles.blackBold16.copyWith(
                       color: titleColor,
                       fontWeight: FontWeight.w700,
@@ -99,7 +100,7 @@ class HomeSectionFilterDrawer extends StatelessWidget {
                   ),
                   const SizedBox(height: 22),
                   Text(
-                    'Price Range',
+                    'priceRange'.tr(),
                     style: TextStyles.blackBold16.copyWith(
                       color: titleColor,
                       fontWeight: FontWeight.w700,
@@ -154,7 +155,7 @@ class HomeSectionFilterDrawer extends StatelessWidget {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       ),
                       child: Text(
-                        'Reset',
+                        'reset'.tr(),
                         style: TextStyles.blackBold14.copyWith(
                           color: titleColor,
                           fontWeight: FontWeight.w700,
@@ -174,7 +175,7 @@ class HomeSectionFilterDrawer extends StatelessWidget {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       ),
                       child: Text(
-                        'Apply',
+                        'apply'.tr(),
                         style: TextStyles.whiteBold14.copyWith(fontWeight: FontWeight.w700),
                       ),
                     ),
@@ -231,7 +232,7 @@ class _SortDropdown extends StatelessWidget {
               .map(
                 (option) => DropdownMenuItem<String>(
                   value: option.key,
-                  child: Text(option.title),
+                  child: Text(option.titleKey.tr()),
                 ),
               )
               .toList(),
@@ -243,7 +244,7 @@ class _SortDropdown extends StatelessWidget {
 
 class _SortOption {
   final String key;
-  final String title;
+  final String titleKey;
 
-  const _SortOption({required this.key, required this.title});
+  const _SortOption({required this.key, required this.titleKey});
 }
