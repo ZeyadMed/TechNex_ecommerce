@@ -36,12 +36,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     {
       "title": "chat_secure_title".tr(),
       "description": "chat_secure_subtitle".tr(),
-      "image": BrandConfig.current.assets.onboardingPrimaryImage,
+      "image": BrandConfig.current.assets.onboardingTertiaryImage,
     },
     {
       "title": "trusted_transactions_title".tr(),
       "description": "trusted_transactions_subtitle".tr(),
-      "image": BrandConfig.current.assets.onboardingSecondaryImage,
+      "image": BrandConfig.current.assets.onboardingQuaternaryImage,
     },
   ];
 
@@ -105,15 +105,17 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           children: <Widget>[
                             Expanded(
                               flex: 3,
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(12.0),
-                                  topRight: Radius.circular(12.0),
-                                ),
-                                child: Image.asset(
-                                  onboardingData[index]["image"]!,
-                                  fit: BoxFit.contain,
-                                  width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(35.0),
+                                  ),
+                                  child: Image.asset(
+                                    onboardingData[index]["image"]!,
+                                    fit: BoxFit.contain,
+                                    width: double.infinity,
+                                  ),
                                 ),
                               ),
                             ),
@@ -161,17 +163,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ),
               // segmented circular indicator in a row with skip/login label
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SegmentedCircularIndicator(
                     currentIndex: _currentPage,
                     itemCount: onboardingData.length,
-                    size: 70.w,
+                    size: 60.w,
                     strokeWidth: 8.w,
                     activeColor: AppColors.primaryColor,
                     inactiveColor: AppColors.primaryColor.withOpacity(0.15),
                     onTap: _nextPage,
                   ),
-                  Spacer(),
+                  // Spacer(),
                   GestureDetector(
                     onTap: _skipToEnd,
                     child: LocalizedLabel(
@@ -187,7 +190,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   ),
                 ],
               ),
-              Gap(40.h),
+              Gap(20.h),
             ],
           ),
         ),

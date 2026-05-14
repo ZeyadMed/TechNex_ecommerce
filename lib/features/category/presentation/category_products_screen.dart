@@ -315,7 +315,7 @@ const List<_CategoryProductItem> _allProducts = [
     rating: 4.9,
     featuredRank: 3,
     product: HomeProductData(
-      imageAsset: 'assets/images/fastShare.png',
+      imageAsset: 'assets/images/guest.png',
       badgeText: 'Bestseller',
       title: 'Studio Headphones',
       rating: '4.9',
@@ -331,7 +331,7 @@ const List<_CategoryProductItem> _allProducts = [
     rating: 4.6,
     featuredRank: 1,
     product: HomeProductData(
-      imageAsset: 'assets/images/buy_sell.jpg',
+      imageAsset: 'assets/images/guest.png',
       badgeText: 'New',
       title: 'Designer Sneakers',
       rating: '4.6',
@@ -379,7 +379,7 @@ const List<_CategoryProductItem> _allProducts = [
     rating: 4.5,
     featuredRank: 2,
     product: HomeProductData(
-      imageAsset: 'assets/images/fastShare.png',
+      imageAsset: 'assets/images/guest.png',
       badgeText: 'Deal',
       title: 'Smart Fitness Watch',
       rating: '4.5',
@@ -427,7 +427,7 @@ const List<_CategoryProductItem> _allProducts = [
     rating: 4.2,
     featuredRank: 1,
     product: HomeProductData(
-      imageAsset: 'assets/images/fastShare.png',
+      imageAsset: 'assets/images/guest.png',
       badgeText: 'Sport',
       title: 'Training Shoes',
       rating: '4.2',
@@ -443,7 +443,7 @@ const List<_CategoryProductItem> _allProducts = [
     rating: 4.8,
     featuredRank: 1,
     product: HomeProductData(
-      imageAsset: 'assets/images/buy_sell.jpg',
+      imageAsset: 'assets/images/guest.png',
       badgeText: 'Flagship',
       title: 'Smartphone Pro Max',
       rating: '4.8',

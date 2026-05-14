@@ -26,14 +26,6 @@ class Assets {
   /// assets/images/bannerLoading.png
   static const String assetsImagesBannerLoading = "assets/images/bannerLoading.png";
 
-  /// Assets for assetsImagesBuySell
-  /// assets/images/buy_sell.jpg
-  static const String assetsImagesBuySell = "assets/images/buy_sell.jpg";
-
-  /// Assets for assetsImagesFastShare
-  /// assets/images/fastShare.png
-  static const String assetsImagesFastShare = "assets/images/fastShare.png";
-
   /// Assets for assetsImagesGuest
   /// assets/images/guest.png
   static const String assetsImagesGuest = "assets/images/guest.png";
@@ -45,10 +37,6 @@ class Assets {
   /// Assets for assetsImagesLogoTextLight
   /// assets/images/logo_text_light.png
   static const String assetsImagesLogoTextLight = "assets/images/logo_text_light.png";
-
-  /// Assets for assetsImagesLogta
-  /// assets/images/Logta.jpeg
-  static const String assetsImagesLogta = "assets/images/Logta.jpeg";
 
   /// Assets for assetsImagesLogtaDarkPng
   /// assets/images/logta_dark_png.png
@@ -70,9 +58,21 @@ class Assets {
   /// assets/images/Logta_text_dark.jpeg
   static const String assetsImagesLogtaTextDark = "assets/images/Logta_text_dark.jpeg";
 
-  /// Assets for assetsImagesSellandbuy
-  /// assets/images/sellandbuy.png
-  static const String assetsImagesSellandbuy = "assets/images/sellandbuy.png";
+  /// Assets for assetsImagesOnBoarding1
+  /// assets/images/onBoarding1.jpg
+  static const String assetsImagesOnBoarding1 = "assets/images/onBoarding1.jpg";
+
+  /// Assets for assetsImagesOnBoarding2
+  /// assets/images/onBoarding2.jpg
+  static const String assetsImagesOnBoarding2 = "assets/images/onBoarding2.jpg";
+
+  /// Assets for assetsImagesOnBoarding3
+  /// assets/images/onBoarding3.jpg
+  static const String assetsImagesOnBoarding3 = "assets/images/onBoarding3.jpg";
+
+  /// Assets for assetsImagesOnBoarding4
+  /// assets/images/onBoarding4.jpg
+  static const String assetsImagesOnBoarding4 = "assets/images/onBoarding4.jpg";
 
   /// Assets for assetsImagesUpload
   /// assets/images/upload.png

@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/extensions/extensions.dart';
+import 'package:e_commerce/core/style/assets.dart';
 import 'package:e_commerce/features/home/presentation/widgets/home_banner_carousel.dart';
 import 'package:e_commerce/features/home/presentation/widgets/home_categories_section.dart';
 import 'package:e_commerce/features/home/presentation/widgets/home_header.dart';
@@ -26,8 +27,7 @@ class HomeScreen extends StatelessWidget {
         imageAsset: 'assets/images/guest.png',
         galleryImages: [
           'assets/images/guest.png',
-          'assets/images/buy_sell.jpg',
-          'assets/images/Logta.jpeg',
+         
         ],
         badgeText: 'Bestseller',
         title: 'Premium Wireless Headphones',
@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
         unavailableSizes: ['XL'],
       ),
       HomeProductData(
-        imageAsset: 'assets/images/buy_sell.jpg',
+        imageAsset: 'assets/images/guest.png',
         badgeText: 'New',
         title: 'Designer Sneakers',
         rating: '4.6',
@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
         oldPrice: r'$629',
       ),
       HomeProductData(
-        imageAsset: 'assets/images/Logta.jpeg',
+        imageAsset: 'assets/images/guest.png',
         badgeText: 'Trending',
         title: 'Wireless Earbuds Pro',
         rating: '4.7',
@@ -75,11 +75,9 @@ class HomeScreen extends StatelessWidget {
 
     final List<HomeProductData> trendingProducts = const [
       HomeProductData(
-        imageAsset: 'assets/images/fastShare.png',
+        imageAsset: 'assets/images/guest.png',
         galleryImages: [
-          'assets/images/fastShare.png',
           'assets/images/guest.png',
-          'assets/images/upload.png',
         ],
         badgeText: 'Bestseller',
         title: 'Premium Wireless Headphones',
@@ -96,7 +94,7 @@ class HomeScreen extends StatelessWidget {
         unavailableSizes: ['XL'],
       ),
       HomeProductData(
-        imageAsset: 'assets/images/buy_sell.jpg',
+        imageAsset: 'assets/images/guest.png',
         badgeText: 'New',
         title: 'Designer Sneakers',
         rating: '4.6',
@@ -105,7 +103,7 @@ class HomeScreen extends StatelessWidget {
         oldPrice: r'$249',
       ),
       HomeProductData(
-        imageAsset: 'assets/images/upload.png',
+        imageAsset: 'assets/images/guest.png',
         badgeText: 'Premium',
         title: 'Luxury Automatic Watch',
         rating: '4.9',
@@ -114,7 +112,7 @@ class HomeScreen extends StatelessWidget {
         oldPrice: r'$629',
       ),
       HomeProductData(
-        imageAsset: 'assets/images/Logta_logo_light.jpeg',
+        imageAsset: 'assets/images/guest.png',
         badgeText: 'Trending',
         title: 'Premium Leather Backpack',
         rating: '4.7',
@@ -150,9 +148,7 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           HomeBannerCarousel(
                             banners: const [
-                              'assets/images/sellandbuy.png',
-                              'assets/images/buy_sell.jpg',
-                              'assets/images/fastShare.png',
+                              Assets.assetsImagesBannerLoading
                             ],
                           ),
                           const SizedBox(height: 18),

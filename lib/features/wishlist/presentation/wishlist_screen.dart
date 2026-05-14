@@ -175,7 +175,7 @@ const List<HomeProductData> _defaultProducts = [
     unavailableSizes: ['XL'],
   ),
   HomeProductData(
-    imageAsset: 'assets/images/buy_sell.jpg',
+    imageAsset: 'assets/images/guest.png',
     badgeText: 'New',
     title: 'Designer Sneakers - White',
     rating: '4.6',
@@ -202,7 +202,7 @@ const List<HomeProductData> _defaultProducts = [
     oldPrice: r'$289',
   ),
   HomeProductData(
-    imageAsset: 'assets/images/fastShare.png',
+    imageAsset: 'assets/images/guest.png',
     badgeText: 'Deal',
     title: 'Smart Fitness Watch',
     rating: '4.5',

@@ -31,7 +31,7 @@ Future<void> main() async {
   // MessagingConfig.initFirebaseMessaging();
   // FirebaseMessaging.onBackgroundMessage(MessagingConfig.messageHandler);
   await CacheManager.init();
-  // await CacheManager.fetchAndSaveFcmToken();
+  await CacheManager.fetchAndSaveFcmToken();
   EasyLocalization.ensureInitialized();
   await DI.execute();
   SystemChrome.setPreferredOrientations([

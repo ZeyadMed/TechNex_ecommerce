@@ -45,7 +45,7 @@ class MyOrdersScreen extends StatelessWidget {
         dateText: 'Apr 5, 2026',
         amount: r'$189.00',
         status: OrderStatus.shipped,
-        imageAsset: 'assets/images/buy_sell.jpg',
+        imageAsset: 'assets/images/guest.png',
       ),
     ];
 

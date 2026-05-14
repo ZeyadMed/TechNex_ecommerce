@@ -82,7 +82,7 @@ class TrackOrderArgs {
           title: 'Designer Sneakers',
           price: r'$189',
           quantity: 'Qty: 2',
-          imageAsset: 'assets/images/buy_sell.jpg',
+          imageAsset: 'assets/images/guest.png',
         ),
       ],
     );

@@ -20,12 +20,16 @@ class BrandAssets {
   final String logoWordmarkLight;
   final String onboardingPrimaryImage;
   final String onboardingSecondaryImage;
+  final String onboardingTertiaryImage;
+  final String onboardingQuaternaryImage;
 
   const BrandAssets({
     required this.logoSymbolLight,
     required this.logoWordmarkLight,
     required this.onboardingPrimaryImage,
     required this.onboardingSecondaryImage,
+    required this.onboardingTertiaryImage,
+    required this.onboardingQuaternaryImage,
   });
 }
 
@@ -75,6 +79,10 @@ class BrandConfig {
         onboardingSecondaryImage:
             _stringOverride('BRAND_ONBOARDING_SECONDARY') ??
                 profile.assets.onboardingSecondaryImage,
+        onboardingTertiaryImage: _stringOverride('BRAND_ONBOARDING_TERTIARY') ??
+            profile.assets.onboardingTertiaryImage,
+        onboardingQuaternaryImage: _stringOverride('BRAND_ONBOARDING_QUATERNARY') ??
+            profile.assets.onboardingQuaternaryImage,
       ),
     );
   }
@@ -124,8 +132,10 @@ class BrandConfig {
       assets: BrandAssets(
         logoSymbolLight: Assets.assetsImagesLogoLight,
         logoWordmarkLight: Assets.assetsImagesLogoTextLight,
-        onboardingPrimaryImage: Assets.assetsImagesSellandbuy,
-        onboardingSecondaryImage: Assets.assetsImagesFastShare,
+        onboardingPrimaryImage: Assets.assetsImagesOnBoarding1,
+        onboardingSecondaryImage: Assets.assetsImagesOnBoarding2,
+        onboardingTertiaryImage: Assets.assetsImagesOnBoarding3,
+        onboardingQuaternaryImage: Assets.assetsImagesOnBoarding4,
       ),
     ),
     'techex': BrandProfile(
@@ -140,8 +150,10 @@ class BrandConfig {
       assets: BrandAssets(
         logoSymbolLight: Assets.assetsImagesLogtaPng,
         logoWordmarkLight: Assets.assetsImagesLogtaTextDark,
-        onboardingPrimaryImage: Assets.assetsImagesBuySell,
-        onboardingSecondaryImage: Assets.assetsImagesFastShare,
+        onboardingPrimaryImage: Assets.assetsImagesOnBoarding1,
+        onboardingSecondaryImage: Assets.assetsImagesOnBoarding2,
+        onboardingTertiaryImage: Assets.assetsImagesOnBoarding3,
+        onboardingQuaternaryImage: Assets.assetsImagesOnBoarding4,
       ),
     ),
   };
